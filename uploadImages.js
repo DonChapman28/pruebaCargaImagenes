@@ -31,13 +31,34 @@ app.post('/upload', upload.single('image'), (req, res) => {
   res.status(200).json({ url: fileUrl });
 });
 
-// Servir archivos estáticos en la carpeta 'uploads'
+//rutas
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Ruta base
+/* app.use('/public', express.static(path.join(__dirname, 'public')));
+ */
+// inicio
 app.get('/', (req, res) => {
-  res.send('Servidor de carga de imágenes está funcionando');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 });
+
+//buscar imagenes anasheeee
+app.get('/images', (req, res) => {
+    const uploadDir = path.join(__dirname, 'uploads');
+  
+    //lee nombres de las weas
+    fs.readdir(uploadDir, (err, files) => {
+      if (err) {
+        return res.status(500).send('Error al leer la carpeta de imágenes');
+      }
+  
+      //convierte las imagenes en url
+      const imageUrls = files.map(file => `/uploads/${file}`);
+  
+      //las muestra en jeison a lo choro
+      res.json(imageUrls);
+    });
+  });
+  
 
 app.listen(PORT, () => {
   console.log(`Servidor funcionando en http://localhost:${PORT}`);

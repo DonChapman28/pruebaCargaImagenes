@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>Prueba carga imagenes</h1>
+
+    <ul id="image-list">
+        <!-- Las imágenes se agregarán aquí dinámicamente -->
+    </ul>
+
+    <script>
+        // Hacer una solicitud GET al servidor para obtener las URLs de las imágenes
+        fetch('/images')
+            .then(response => response.json())
+            .then(imageUrls => {
+                const imageList = document.getElementById('image-list');
+                imageUrls.forEach(url => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.textContent = url;
+                    listItem.appendChild(link);
+                    imageList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error al obtener las URLs de las imágenes:', error));
+    </script>
+</body>
+</html>
