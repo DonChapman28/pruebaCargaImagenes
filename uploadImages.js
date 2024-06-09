@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const BASE_URL = `https://pruebacargaimagenes.onrender.com:${PORT}`;
+const BASE_URL = `https://pruebacargaimagenes.onrender.com:`;
 // Habilitar CORS
 app.use(cors());
 // Configurar almacenamiento de multer
